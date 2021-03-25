@@ -297,6 +297,29 @@ class SudokuPuzzle(Puzzle):
         >>> s.fail_fast()
         True
         """
+        symbols, symbol_set = self._grid, self._symbol_set
+
+        if not any(EMPTY_CELL in row for row in symbols):
+            return False
+
+        lst = []
+        r = 0
+        for row in symbols:
+            c = 0
+            for pos in row:
+                if pos == EMPTY_CELL:
+                    lst.append((r, c))
+                c += 1
+            r += 1
+
+        for cord in lst:
+            allowed_symbols = (self._symbol_set
+                               - (self._row_set(cord[0])
+                                  | self._column_set(cord[1])
+                                  | self._subsquare_set(cord[0], cord[1])))
+            if len(allowed_symbols) == 0:
+                return True
+        return False
 
     # some private helper methods
     # Note: these return sets of symbols you may find useful
