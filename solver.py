@@ -29,6 +29,7 @@ from typing import List, Optional, Set
 from adts import Queue
 
 from puzzle import Puzzle
+I will kill myself
 
 
 class Solver:
