@@ -48,7 +48,7 @@ class SudokuPuzzle(Puzzle):
 
     === Representation Invariants ===
     _n is a positive, square integer >= 4 (e.g. 4, 9, 16)
-    test
+    test222
     """
     _n: int
     _grid: List[List[str]]
