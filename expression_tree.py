@@ -118,6 +118,24 @@ class ExprTree:
         >>> exp_t.eval(look_up)
         31
         """
+        if self.is_empty():
+            return 0
+        elif not self._subtrees:
+            if isinstance(self._root, int):
+                return self._root
+            else:
+                return lookup[self._root]
+        else:
+            if self._root == OP_ADD:
+                s = 0
+                for subtree in self._subtrees:
+                    s += subtree.eval(lookup)
+                return s
+            elif self._root == OP_MULTIPLY:
+                t = 1
+                for subtree in self._subtrees:
+                    t *= subtree.eval(lookup)
+                return t
 
     # TODO (Task 4): implement __str__
     def __str__(self) -> str:
@@ -150,6 +168,29 @@ class ExprTree:
         >>> print(exp_t)
         (3 + (x * y) + x)
         """
+        if self.is_empty():
+            return '()'
+        elif not self._subtrees:
+            return str(self._root)
+        else:
+            if self._root == OP_ADD:
+                s = ''
+                for i in range(len(self._subtrees)):
+                    if i == len(self._subtrees) - 1:
+                        s += self._subtrees[i].__str__()
+                    else:
+                        s += (self._subtrees[i].__str__()
+                              + ' ' + self._root + ' ')
+                return '(' + s + ')'
+            elif self._root == OP_MULTIPLY:
+                t = ''
+                for i in range(len(self._subtrees)):
+                    if i == len(self._subtrees) - 1:
+                        t += self._subtrees[i].__str__()
+                    else:
+                        t += (self._subtrees[i].__str__()
+                              + ' ' + self._root + ' ')
+                return '(' + t + ')'
 
     # TODO (Task 4): implement __eq__
     def __eq__(self, other: ExprTree) -> bool:
@@ -168,6 +209,9 @@ class ExprTree:
         >>> t2 == ExprTree(2, [])
         False
         """
+        if self._root == other._root and self._subtrees == other._subtrees:
+            return True
+        return False
 
     # TODO (Task 4): implement substitute
     def substitute(self, from_to: Dict[Union[str, int],
@@ -191,6 +235,10 @@ class ExprTree:
         >>> print(exp_t)
         (2 + (2 + 1))
         """
+        if self._root in from_to:
+            self._root = from_to[self._root]
+        for subtree in self._subtrees:
+            subtree.substitute(from_to)
 
     # TODO (Task 4): implement populate_lookup
     def populate_lookup(self, lookup: Dict[str, int]) -> None:
@@ -207,6 +255,11 @@ class ExprTree:
         >>> len(look_up) == 1
         True
         """
+        if not self._subtrees:
+            if self._root not in lookup and self._root not in OPERATORS:
+                lookup[self._root] = 0
+        for subtree in self._subtrees:
+            subtree.populate_lookup(lookup)
 
     def append(self, child: ExprTree) -> None:
         """Append child to this ExprTree's list of subtrees.
