@@ -23,13 +23,13 @@ find solutions to puzzles, step by step.
 
 from __future__ import annotations
 
+
 from typing import List, Optional, Set
 
 # You may remove this import if you don't use it in your code.
 from adts import Queue
 
 from puzzle import Puzzle
-I will kill myself
 
 
 class Solver:
@@ -65,10 +65,6 @@ class Solver:
         raise NotImplementedError
 
 
-# TODO (Task 2): implement the solve method in the DfsSolver class.
-# Your solve method MUST be a recursive function (i.e. it must make
-# at least one recursive call to itself)
-# You may NOT change the interface to the solve method.
 class DfsSolver(Solver):
     """"
     A solver for full-information puzzles that uses
@@ -94,10 +90,26 @@ class DfsSolver(Solver):
         representations, whose puzzle states can't be any part of the path to
         the solution.
         """
+        # add str (puzzle) instead
+        if seen is None:
+            seen = set()
+        if str(puzzle) not in seen:
+            seen.add(str(puzzle))
+        if puzzle.fail_fast():
+            return []
+        if puzzle.is_solved():
+            return [puzzle]
+        else:
+            for puz in puzzle.extensions():
+                if str(puz) not in seen:
+                    seen.add(str(puzzle))
+                    solve = self.solve(puz, seen)
+                    if len(solve) > 0:
+                        if solve[-1].is_solved():
+                            return [puzzle] + solve
+            return []
 
 
-# TODO (Task 2): implement the solve method in the BfsSolver class.
-# Hint: You may find a Queue useful here.
 class BfsSolver(Solver):
     """"
     A solver for full-information puzzles that uses
@@ -123,6 +135,27 @@ class BfsSolver(Solver):
         representations, whose puzzle states can't be any part of the path to
         the solution.
         """
+
+        queue = Queue()
+
+        if seen is None:
+            seen = set()
+
+        queue.enqueue([puzzle])
+
+        while not queue.is_empty():
+            lst = queue.dequeue()
+            p = lst[-1]
+            if p.fail_fast() or str(p) in seen:
+                if str(p) not in seen:
+                    seen.add(str(p))
+            elif p.is_solved():
+                return lst
+            else:
+                for puz in p.extensions():
+                    sublst = lst + [puz]
+                    queue.enqueue(sublst)
+        return []
 
 
 if __name__ == "__main__":
