@@ -30,6 +30,7 @@ Note: Some of the provided code makes use of list comprehensions
 from __future__ import annotations
 from typing import List, Set
 from puzzle import Puzzle
+from sovler import BfsSolver
 
 EMPTY_CELL = ' '
 
@@ -48,7 +49,6 @@ class SudokuPuzzle(Puzzle):
 
     === Representation Invariants ===
     _n is a positive, square integer >= 4 (e.g. 4, 9, 16)
-    test222
     """
     _n: int
     _grid: List[List[str]]
@@ -366,6 +366,13 @@ class SudokuPuzzle(Puzzle):
         Hint: You should find the optional parameter, seen, for the Solver
         class' solve method very useful here.
         """
+        a = BfsSolver()
+        me = SudokuPuzzle(self._n, self._grid, self._symbol_set)
+        seen = set()
+        while a.solve(me, seen):
+            seen.add(str(a.solve(me, seen)[-1]))
+
+        return len(seen) == 1
 
 
 if __name__ == "__main__":
