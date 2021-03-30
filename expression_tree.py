@@ -256,7 +256,8 @@ class ExprTree:
         True
         """
         if not self._subtrees:
-            if self._root not in lookup and self._root not in OPERATORS:
+            if self._root not in lookup and not isinstance(self._root, int) \
+                    and self._root not in OPERATORS:
                 lookup[self._root] = 0
         for subtree in self._subtrees:
             subtree.populate_lookup(lookup)

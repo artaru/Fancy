@@ -88,6 +88,10 @@ class ExpressionTreePuzzle(Puzzle):
         >>> puz.is_solved()
         True
         """
+        for var in self.variables:
+            if self.variables[var] == 0:
+                return False
+        return self._tree.eval(self.variables) == self.target
 
     # TODO (Task 5) override __str__
     def __str__(self) -> str:
@@ -110,6 +114,11 @@ class ExpressionTreePuzzle(Puzzle):
         {'a': 0, 'b': 0}
         ((a * (b + 6 + 6)) + 5) = 61
         """
+        s = ''
+        for var in self.variables:
+            s += '\'' + str(var) + '\'' + ': ' + str(self.variables[var]) + ', '
+        return ('{' + s[:-2] + '}' + '\n' + self._tree.__str__() + ' = '
+                + str(self.target))
 
     # TODO (Task 5) override extensions
     def extensions(self) -> List[ExpressionTreePuzzle]:
@@ -139,6 +148,14 @@ class ExpressionTreePuzzle(Puzzle):
         >>> len(exts_of_puz) == 18
         True
         """
+        lst = []
+        for var in self.variables:
+            if self.variables[var] == 0:
+                for i in range(1, 10):
+                    new_expt = type(self)(ExprTree(var, []), self.target)
+                    new_expt.variables = {var: i}
+                    lst.append(new_expt)
+        return lst
 
     # TODO (TASK 5): override fail_fast
     # The specifics of how you implement this are up to you.
@@ -152,6 +169,14 @@ class ExpressionTreePuzzle(Puzzle):
         have no solution, False otherwise.
 
         """
+        for var in self.variables:
+            if self.variables[var] < 0:
+                return True
+            elif self.variables[var] == 0:
+                return False
+
+        if self._tree.eval(self.variables) != self.target:
+            return True
 
 
 if __name__ == "__main__":
