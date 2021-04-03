@@ -347,6 +347,19 @@ def construct_from_list(values: List[List[Union[str, int]]]) -> ExprTree:
     >>> exp_t == ExprTree('+', subtrees)
     True
     """
+    queue = Queue()
+    a = ExprTree(values.pop(0)[-1], [])
+    queue.enqueue(a)
+
+    for lst in values:
+        gen = queue.dequeue()
+        for i in lst:
+            root = ExprTree(i, [])
+            if i in OPERATORS:
+                queue.enqueue(root)
+            else:
+                gen.append(root)
+    return a
 
 
 # Provided visualization code - see an example usage at the bottom
