@@ -23,6 +23,7 @@ This module contains the word ladder puzzle class.
 from __future__ import annotations
 from typing import Optional, Set, List
 from puzzle import Puzzle
+from solver import BfsSolver
 
 
 # difficulty constants
