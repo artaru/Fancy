@@ -357,6 +357,7 @@ def construct_from_list(values: List[List[Union[str, int]]]) -> ExprTree:
             root = ExprTree(i, [])
             if i in OPERATORS:
                 queue.enqueue(root)
+                gen.append(root)
             else:
                 gen.append(root)
     return a
