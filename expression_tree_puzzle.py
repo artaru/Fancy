@@ -172,11 +172,16 @@ class ExpressionTreePuzzle(Puzzle):
         for var in self.variables:
             if self.variables[var] < 0:
                 return True
-            elif self.variables[var] == 0:
-                return False
 
-        if self._tree.eval(self.variables) != self.target:
+        for var in self.variables:
+            if self.variables[var] == 0:
+                self.variables[var] = 1
+        if self._tree.eval(self.variables) > self.target:
             return True
+        elif self._tree.eval(self.variables) == self.target:
+            return False
+        else:
+            return False
 
 
 if __name__ == "__main__":
