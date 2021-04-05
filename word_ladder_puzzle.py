@@ -205,16 +205,16 @@ class WordLadderPuzzle(Puzzle):
         a = BfsSolver()
         me = WordLadderPuzzle(self.from_word, self.to_word, self.word_set)
         dif = a.solve(me)
-        if 1 <= len(dif) <= 2:
-            return "TRIVIAL"
+        if len(dif) == 0:
+            return IMPOSSIBLE
+        elif 1 <= len(dif) <= 2:
+            return TRIVIAL
         elif len(dif) == 3:
-            return "EASY"
-        elif len(dif) < 6:
-            return "MEDIUM"
+            return EASY
+        elif 3 < len(dif) < 6:
+            return MEDIUM
         elif len(dif) >= 6:
-            return "Hard"
-        elif len(dif) == 0:
-            return "IMPOSSIBLE"
+            return HARD
 
 
 if __name__ == '__main__':
