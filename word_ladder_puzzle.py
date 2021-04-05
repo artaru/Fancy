@@ -168,7 +168,7 @@ class WordLadderPuzzle(Puzzle):
             diff = 0
             for i in range(len(word)):
                 try:
-                    if word[i] == self.from_word[i]:
+                    if word[i] != self.from_word[i]:
                         diff += 1
                 except IndexError:
                     diff = 100

@@ -169,6 +169,7 @@ class ExpressionTreePuzzle(Puzzle):
         have no solution, False otherwise.
 
         """
+        
         for var in self.variables:
             if self.variables[var] < 0:
                 return True
