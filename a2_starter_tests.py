@@ -50,7 +50,7 @@ from solver import BfsSolver, DfsSolver
 
 
 def test_sudoku_fail_fast_doctest() -> None:
-    """Test SudokuPuzzle.fail_fast on the provided doctest."""
+    """Test SudokuPuzzle.fail_fast on the provided doctest + extra."""
     s = SudokuPuzzle(4, [["A", "B", "C", "D"],
                          ["C", "D", " ", " "],
                          [" ", " ", " ", " "],
@@ -66,6 +66,41 @@ def test_sudoku_fail_fast_doctest() -> None:
                      {"A", "B", "C", "D"})
     assert s.fail_fast() is True
 
+    s = SudokuPuzzle(4, [["A", "D", "B", "C"],
+                         ["B", "C", "A", "D"],
+                         ["C", "B", "D", "A"],
+                         [" ", " ", " ", " "]],
+                     {"A", "B", "C", "D"})
+    assert s.fail_fast() is False
+
+    s = SudokuPuzzle(4, [["A", "D", "B", "C"],
+                         ["B", "C", "A", "D"],
+                         ["C", "B", "D", "A"],
+                         ["D", "A", "C", "B"]],
+                     {"A", "B", "C", "D"})
+    assert s.fail_fast() is False
+
+    s = SudokuPuzzle(4, [["B", " ", "A", "C"],
+                         ["C", "D", "B", " "],
+                         ["A", "C", " ", " "],
+                         [" ", " ", " ", " "]],
+                     {"A", "B", "C", "D"})
+    assert s.fail_fast() is True
+
+    s = SudokuPuzzle(4, [["B", " ", " ", "C"],
+                         [" ", "D", " ", " "],
+                         [" ", "C", " ", " "],
+                         [" ", "A", " ", " "]],
+                     {"A", "B", "C", "D"})
+    assert s.fail_fast() is True
+
+    s = SudokuPuzzle(4, [["B", " ", " ", " "],
+                         ["C", " ", " ", " "],
+                         [" ", "D", " ", " "],
+                         ["A", " ", " ", " "]],
+                     {"A", "B", "C", "D"})
+    assert s.fail_fast() is True
+
 
 def test_has_unique_solution_doctest() -> None:
     """Test has_unique_solution on a SudokuPuzzle with a non-unique solution."""
@@ -73,6 +108,30 @@ def test_has_unique_solution_doctest() -> None:
                          ["B", "A", "D", "C"],
                          ["C", " ", "A", " "],
                          ["A", " ", "C", " "]],
+                     {"A", "B", "C", "D"})
+
+    assert s.has_unique_solution() is False
+
+    s = SudokuPuzzle(4, [["D", "C", "B", "A"],
+                         ["B", "A", "D", "C"],
+                         ["C", "D", "A", " "],
+                         ["A", " ", "C", " "]],
+                     {"A", "B", "C", "D"})
+
+    assert s.has_unique_solution() is True
+
+    s = SudokuPuzzle(4, [["D", " ", " ", "A"],
+                         [" ", " ", " ", " "],
+                         [" ", " ", " ", " "],
+                         [" ", " ", " ", " "]],
+                     {"A", "B", "C", "D"})
+
+    assert s.has_unique_solution() is False
+
+    s = SudokuPuzzle(4, [[" ", " ", " ", " "],
+                         [" ", " ", " ", " "],
+                         [" ", " ", " ", " "],
+                         [" ", " ", " ", " "]],
                      {"A", "B", "C", "D"})
 
     assert s.has_unique_solution() is False
@@ -292,7 +351,7 @@ def test_expression_tree_puzzle_extensions_doctest() -> None:
     exts_of_an_ext = exts_of_puz[0].extensions()
     assert len(exts_of_an_ext) == 0
 
-    exp_t = ExprTree('a', [ExprTree('b', [])])
+    exp_t = ExprTree('+', [ExprTree('a', []), ExprTree('b', [])])
     puz = ExpressionTreePuzzle(exp_t, 8)
     exts_of_puz = puz.extensions()
     assert len(exts_of_puz) == 18

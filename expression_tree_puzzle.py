@@ -152,8 +152,11 @@ class ExpressionTreePuzzle(Puzzle):
         for var in self.variables:
             if self.variables[var] == 0:
                 for i in range(1, 10):
-                    new_expt = type(self)(ExprTree(var, []), self.target)
-                    new_expt.variables = {var: i}
+                    var_copy = self.variables.copy()
+                    var_copy[var] = i
+                    tree_copy = self._tree.copy()
+                    tree_copy.substitute(var_copy)
+                    new_expt = type(self)(tree_copy, self.target)
                     lst.append(new_expt)
         return lst
 
@@ -169,7 +172,7 @@ class ExpressionTreePuzzle(Puzzle):
         have no solution, False otherwise.
 
         """
-        
+
         for var in self.variables:
             if self.variables[var] < 0:
                 return True
