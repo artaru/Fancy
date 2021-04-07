@@ -99,14 +99,13 @@ class DfsSolver(Solver):
             return []
         if puzzle.is_solved():
             return [puzzle]
-        else:
-            for puz in puzzle.extensions():
-                if str(puz) not in seen:
-                    seen.add(str(puzzle))
-                    solve = self.solve(puz, seen)
-                    if len(solve) > 0:
-                        return [puzzle] + solve
-            return []
+        for puz in puzzle.extensions():
+            if str(puz) not in seen:
+                seen.add(str(puzzle))
+                solve = self.solve(puz, seen)
+                if len(solve) > 0:
+                    return [puzzle] + solve
+        return []
 
 
 class BfsSolver(Solver):
