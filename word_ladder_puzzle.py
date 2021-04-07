@@ -105,7 +105,7 @@ class WordLadderPuzzle(Puzzle):
         True
         """
         return (self.from_word == other.from_word
-                and self.to_word == other.to_word 
+                and self.to_word == other.to_word
                 and self.word_set == other.word_set)
 
     def __str__(self) -> str:
@@ -156,15 +156,19 @@ class WordLadderPuzzle(Puzzle):
         True
         """
         return_lst = []
+        small_word_set = set()
         for word in self.word_set:
             if len(word) == len(self.from_word):
-                diff = 0
-                for i in range(len(word)):
-                    if word[i] != self.from_word[i]:
-                        diff += 1
-                if diff == 1:
-                    new_ladder = type(self)(word, self.to_word, self.word_set)
-                    return_lst.append(new_ladder)
+                small_word_set.add(word)
+        
+        for word in small_word_set:
+            diff = 0
+            for i in range(len(word)):
+                if word[i] != self.from_word[i]:
+                    diff += 1
+            if diff == 1:
+                new_ladder = type(self)(word, self.to_word, self.word_set)
+                return_lst.append(new_ladder)
         return return_lst
 
     def get_difficulty(self) -> str:
@@ -200,7 +204,6 @@ class WordLadderPuzzle(Puzzle):
             return MEDIUM
         else:
             return HARD
-        
 
 
 if __name__ == '__main__':

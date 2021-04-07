@@ -284,8 +284,6 @@ class SudokuPuzzle(Puzzle):
         >>> s.fail_fast()
         True
         """
-        symbols, symbol_set = self._grid, self._symbol_set
-
         lst = []
         r = 0
         for row in symbols:
