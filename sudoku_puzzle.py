@@ -286,9 +286,6 @@ class SudokuPuzzle(Puzzle):
         """
         symbols, symbol_set = self._grid, self._symbol_set
 
-        if not any(EMPTY_CELL in row for row in symbols):
-            return False
-
         lst = []
         r = 0
         for row in symbols:
