@@ -284,6 +284,11 @@ class SudokuPuzzle(Puzzle):
         >>> s.fail_fast()
         True
         """
+        symbols, symbol_set = self._grid, self._symbol_set
+
+        if not any(EMPTY_CELL in row for row in symbols):
+            return False
+
         lst = []
         r = 0
         for row in symbols:
@@ -295,7 +300,7 @@ class SudokuPuzzle(Puzzle):
             r += 1
 
         for cord in lst:
-            allowed_symbols = (self._symbol_set
+            allowed_symbols = (symbol_set
                                - (self._row_set(cord[0])
                                   | self._column_set(cord[1])
                                   | self._subsquare_set(cord[0], cord[1])))
