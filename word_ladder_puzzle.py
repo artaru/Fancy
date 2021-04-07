@@ -157,17 +157,28 @@ class WordLadderPuzzle(Puzzle):
         """
         return_lst = []
         for word in self.word_set:
-            diff = 0
-            for i in range(len(word)):
-                try:
+            if len(word) == len(self.from_word):
+                diff = 0
+                for i in range(len(word)):
                     if word[i] != self.from_word[i]:
                         diff += 1
-                except IndexError:
-                    diff = 100
-            if diff == 1:
-                new_ladder = type(self)(word, self.to_word, self.word_set)
-                return_lst.append(new_ladder)
+                if diff == 1:
+                    new_ladder = type(self)(word, self.to_word, self.word_set)
+                    return_lst.append(new_ladder)
         return return_lst
+        # return_lst = []
+        # for word in self.word_set:
+        #     diff = 0
+        #     for i in range(len(word)):
+        #         try:
+        #             if word[i] != self.from_word[i]:
+        #                 diff += 1
+        #         except IndexError:
+        #             diff = 100
+        #     if diff == 1:
+        #         new_ladder = type(self)(word, self.to_word, self.word_set)
+        #         return_lst.append(new_ladder)
+        # return return_lst
 
     def get_difficulty(self) -> str:
         """
