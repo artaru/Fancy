@@ -198,9 +198,9 @@ class WordLadderPuzzle(Puzzle):
             return EASY
         elif 3 < len(dif) < 6:
             return MEDIUM
-        elif len(dif) >= 6:
+        else:
             return HARD
-        return None
+        
 
 
 if __name__ == '__main__':
