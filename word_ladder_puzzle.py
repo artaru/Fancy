@@ -104,9 +104,9 @@ class WordLadderPuzzle(Puzzle):
         >>> wl1 == wl3
         True
         """
-        return (self.from_word == other.from_word and
-                self.to_word == other.to_word and
-                self.word_set == other.word_set)
+        return (self.from_word == other.from_word
+                and self.to_word == other.to_word 
+                and self.word_set == other.word_set)
 
     def __str__(self) -> str:
         """
@@ -166,19 +166,6 @@ class WordLadderPuzzle(Puzzle):
                     new_ladder = type(self)(word, self.to_word, self.word_set)
                     return_lst.append(new_ladder)
         return return_lst
-        # return_lst = []
-        # for word in self.word_set:
-        #     diff = 0
-        #     for i in range(len(word)):
-        #         try:
-        #             if word[i] != self.from_word[i]:
-        #                 diff += 1
-        #         except IndexError:
-        #             diff = 100
-        #     if diff == 1:
-        #         new_ladder = type(self)(word, self.to_word, self.word_set)
-        #         return_lst.append(new_ladder)
-        # return return_lst
 
     def get_difficulty(self) -> str:
         """

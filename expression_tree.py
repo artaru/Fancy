@@ -130,7 +130,7 @@ class ExprTree:
                 for subtree in self._subtrees:
                     s += subtree.eval(lookup)
                 return s
-            elif self._root == OP_MULTIPLY:
+            else:
                 t = 1
                 for subtree in self._subtrees:
                     t *= subtree.eval(lookup)
@@ -171,24 +171,14 @@ class ExprTree:
         elif not self._subtrees:
             return str(self._root)
         else:
-            if self._root == OP_ADD:
-                s = ''
-                for i in range(len(self._subtrees)):
-                    if i == len(self._subtrees) - 1:
-                        s += self._subtrees[i].__str__()
-                    else:
-                        s += (self._subtrees[i].__str__()
-                              + ' ' + self._root + ' ')
-                return '(' + s + ')'
-            elif self._root == OP_MULTIPLY:
-                t = ''
-                for i in range(len(self._subtrees)):
-                    if i == len(self._subtrees) - 1:
-                        t += self._subtrees[i].__str__()
-                    else:
-                        t += (self._subtrees[i].__str__()
-                              + ' ' + self._root + ' ')
-                return '(' + t + ')'
+            s = ''
+            for i in range(len(self._subtrees)):
+                if i == len(self._subtrees) - 1:
+                    s += self._subtrees[i].__str__()
+                else:
+                    s += (self._subtrees[i].__str__()
+                          + ' ' + self._root + ' ')
+            return '(' + s + ')'
 
     def __eq__(self, other: ExprTree) -> bool:
         """

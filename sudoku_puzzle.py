@@ -263,19 +263,6 @@ class SudokuPuzzle(Puzzle):
             return_lst.append(new_puzzle)
         return return_lst
 
-
-    # If there is an open position with no symbols available
-    # (i.e. all symbols are already used in the same row, column, or subsquare),
-    # then the sudoku puzzle is not solvable.
-    #
-    # Hint: You may find the provided private methods below helpful.
-    #       The helpers return sets - see the provided code for extensions
-    #       above for an example of how they can be used.
-    #
-    # Note: You can take the union of two sets, set_a and set_b as either
-    #       set_a | set_b or set_a.union(set_b).
-    #       Example:
-    #            {'1', '2', '3'} | {'2', '4', '5'} == {'1', '2', '3', '4', '5'}
     def fail_fast(self) -> bool:
         """
         Return True if some unfilled position has no allowable symbols
@@ -298,9 +285,6 @@ class SudokuPuzzle(Puzzle):
         True
         """
         symbols, symbol_set = self._grid, self._symbol_set
-
-        if not any(EMPTY_CELL in row for row in symbols):
-            return False
 
         lst = []
         r = 0
