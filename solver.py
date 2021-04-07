@@ -105,8 +105,7 @@ class DfsSolver(Solver):
                     seen.add(str(puzzle))
                     solve = self.solve(puz, seen)
                     if len(solve) > 0:
-                        if solve[-1].is_solved():
-                            return [puzzle] + solve
+                        return [puzzle] + solve
             return []
 
 

@@ -68,7 +68,6 @@ class ExpressionTreePuzzle(Puzzle):
         self._tree = tree
         self.target = target
 
-    # TODO (Task 5) override is_solved
     def is_solved(self) -> bool:
         """
         Return True iff ExpressionTreePuzzle self is solved.
@@ -93,7 +92,6 @@ class ExpressionTreePuzzle(Puzzle):
                 return False
         return self._tree.eval(self.variables) == self.target
 
-    # TODO (Task 5) override __str__
     def __str__(self) -> str:
         """
         Return a string representation of this ExpressionTreePuzzle.
@@ -120,7 +118,6 @@ class ExpressionTreePuzzle(Puzzle):
         return ('{' + s[:-2] + '}' + '\n' + self._tree.__str__() + ' = '
                 + str(self.target))
 
-    # TODO (Task 5) override extensions
     def extensions(self) -> List[ExpressionTreePuzzle]:
         """
         Return the list of legal extensions of this ExpressionTreePuzzle.
@@ -156,16 +153,10 @@ class ExpressionTreePuzzle(Puzzle):
                     var_copy[var] = i
                     tree_copy = self._tree.copy()
                     tree_copy.substitute(var_copy)
-                    new_expt = type(self)(tree_copy, self.target)
+                    new_expt = ExpressionTreePuzzle(tree_copy, self.target)
                     lst.append(new_expt)
         return lst
 
-    # TODO (TASK 5): override fail_fast
-    # The specifics of how you implement this are up to you.
-    # Hint 1: remember that a puzzle can only be extended by assigning a value
-    #         to an unassigned variable.
-    # Hint 2: remember that our expression tree only supports addition,
-    #         multiplication, and non-negative integers.
     def fail_fast(self) -> bool:
         """
         Return True if this ExpressionTreePuzzle can be quickly determined to
@@ -176,16 +167,17 @@ class ExpressionTreePuzzle(Puzzle):
         for var in self.variables:
             if self.variables[var] < 0:
                 return True
+        return False
 
-        for var in self.variables:
-            if self.variables[var] == 0:
-                self.variables[var] = 1
-        if self._tree.eval(self.variables) > self.target:
-            return True
-        elif self._tree.eval(self.variables) == self.target:
-            return False
-        else:
-            return False
+        # for var in self.variables:
+        #     if self.variables[var] == 0:
+        #         self.variables[var] = 1
+        # if self._tree.eval(self.variables) > self.target:
+        #     return True
+        # elif self._tree.eval(self.variables) == self.target:
+        #     return False
+        # else:
+        #     return False
 
 
 if __name__ == "__main__":

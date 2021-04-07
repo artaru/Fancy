@@ -25,7 +25,6 @@ from typing import Optional, Set, List
 from puzzle import Puzzle
 from solver import BfsSolver
 
-
 # difficulty constants
 IMPOSSIBLE = 'impossible'
 TRIVIAL = 'trivial'
@@ -90,7 +89,6 @@ class WordLadderPuzzle(Puzzle):
         # set of characters to use for 1-character changes
         self._chars = LETTERS
 
-    # TODO (Task 3): override __eq__
     def __eq__(self, other: WordLadderPuzzle) -> bool:
         """
         Return whether WordLadderPuzzle self is equivalent to other.
@@ -110,7 +108,6 @@ class WordLadderPuzzle(Puzzle):
                 self.to_word == other.to_word and
                 self.word_set == other.word_set)
 
-    # TODO (Task 3): override __str__
     def __str__(self) -> str:
         """
         Return a human-friendly string representing this WordLadderPuzzle's
@@ -127,8 +124,6 @@ class WordLadderPuzzle(Puzzle):
         """
         return self.from_word + ' -> ' + self.to_word
 
-    # Note: A WordLadderPuzzle is solved when from_word is the same as its
-    # to_word
     def is_solved(self) -> bool:
         """
         Return whether this WordLadderPuzzle is solved.
@@ -142,9 +137,6 @@ class WordLadderPuzzle(Puzzle):
         """
         return self.from_word == self.to_word
 
-    # TODO (Task 3): override extensions
-    # legal extensions are valid WordLadderPuzzles that have a from_word that
-    # differs from this WordLadderPuzzle's from_word by exactly one character
     def extensions(self) -> List[WordLadderPuzzle]:
         """
         Return a list of WordLadderPuzzles that are one step
@@ -177,11 +169,6 @@ class WordLadderPuzzle(Puzzle):
                 return_lst.append(new_ladder)
         return return_lst
 
-    # TODO (Task 3): implement get_difficulty
-    # Note: implementing this requires you to have completed Task 2
-    # Hint: Think about which of BfsSolver and DfsSolver is the right
-    #       solver for the task at hand. (You may add any required
-    #       imports at the top of the file.)
     def get_difficulty(self) -> str:
         """
         Return the "difficulty" of this puzzle.
@@ -215,6 +202,7 @@ class WordLadderPuzzle(Puzzle):
             return MEDIUM
         elif len(dif) >= 6:
             return HARD
+        return None
 
 
 if __name__ == '__main__':

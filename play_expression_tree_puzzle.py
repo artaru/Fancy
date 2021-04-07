@@ -34,7 +34,7 @@ from pygame_gui.elements import UIButton, UILabel, UIDropDownMenu
 # imports from our code
 from expression_tree import ExprTree, OPERATORS, visualize
 from expression_tree_puzzle import ExpressionTreePuzzle
-from solver import BfsSolver
+from solver import BfsSolver, DfsSolver
 
 # some constants defining how game is displayed
 WIDTH = 1000
@@ -197,6 +197,7 @@ class ExpressionTreePuzzleGUI:
         while not success:
             solver = BfsSolver()
             sol = solver.solve(self._puzzle)
+            print(sol)
             if sol:
                 hint_vars = sol[:2][-1].variables
                 self._apply_hint(hint_vars)

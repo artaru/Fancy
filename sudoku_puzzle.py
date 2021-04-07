@@ -263,7 +263,7 @@ class SudokuPuzzle(Puzzle):
             return_lst.append(new_puzzle)
         return return_lst
 
-    # TODO (Task 1): override fail_fast
+
     # If there is an open position with no symbols available
     # (i.e. all symbols are already used in the same row, column, or subsquare),
     # then the sudoku puzzle is not solvable.
@@ -352,9 +352,6 @@ class SudokuPuzzle(Puzzle):
                 subsquare_symbols.append(self._grid[ul_row + i][ul_col + j])
         return set(subsquare_symbols)
 
-    # TODO (Task 2): implement has_unique_solution
-    # Implement this method according to its docstring
-    # You may import any modules that you need when implementing this method.
     def has_unique_solution(self) -> bool:
         """
         Return True if the this Sudoku puzzle has exactly one unique solution,

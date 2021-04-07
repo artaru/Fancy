@@ -96,7 +96,6 @@ class ExprTree:
         """
         return self._root is None
 
-    # TODO (Task 4): implement eval
     def eval(self, lookup: Dict[str, int]) -> int:
         """
         Evaluate this expression tree and return the result.
@@ -137,7 +136,6 @@ class ExprTree:
                     t *= subtree.eval(lookup)
                 return t
 
-    # TODO (Task 4): implement __str__
     def __str__(self) -> str:
         """
         Return a string representation of this expression tree
@@ -192,7 +190,6 @@ class ExprTree:
                               + ' ' + self._root + ' ')
                 return '(' + t + ')'
 
-    # TODO (Task 4): implement __eq__
     def __eq__(self, other: ExprTree) -> bool:
         """
         Return whether this ExprTree is equivalent to <other>.
@@ -213,7 +210,6 @@ class ExprTree:
             return True
         return False
 
-    # TODO (Task 4): implement substitute
     def substitute(self, from_to: Dict[Union[str, int],
                                        Union[str, int]]) -> None:
         """
@@ -240,7 +236,6 @@ class ExprTree:
         for subtree in self._subtrees:
             subtree.substitute(from_to)
 
-    # TODO (Task 4): implement populate_lookup
     def populate_lookup(self, lookup: Dict[str, int]) -> None:
         """
         Add entries to <lookup> so it contains a key for all variables
@@ -318,7 +313,6 @@ class ExprTree:
             i += 1
 
 
-# TODO (Task 4): implement construct_from_list
 def construct_from_list(values: List[List[Union[str, int]]]) -> ExprTree:
     """
     Construct an expression tree from <values>.
@@ -450,6 +444,7 @@ def _draw_graph(g: nx.Graph,
 
 if __name__ == "__main__":
     import python_ta
+
     python_ta.check_all(config={'pyta-reporter': 'ColorReporter',
                                 'allowed-io': [],
                                 'allowed-import-modules': ['doctest',
